@@ -4,9 +4,9 @@
 
 CC    = gcc
 CFLAGS = -O3 -g -Wall $(INCLUDE)
-INCLUDE = -I/usr/local/include -I/usr/include/freetype2
+INCLUDE = -I/usr/local/include
 LDFLAGS = 
-LIBS = -L/usr/local/lib -leggx -lX11 -lm -lv4l2 -lfreetype
+LIBS = -L/usr/local/lib -leggx -lX11 -lm -lv4l2
 
 TARGET = thermalview
 SRCS = main.c camera.c image.c
