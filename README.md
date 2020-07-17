@@ -14,6 +14,7 @@ $ sudo apt-get install libv4l-dev v4l-utils
 
 ### EGGX/ProCALライブラリのインストール
 ```
+$ sudo apt install libx11-dev
 $ git clone https://github.com/cyamauch/eggx.git
 $ cd eggx/src
 $ ln -sf Makefile.linux Makefile
