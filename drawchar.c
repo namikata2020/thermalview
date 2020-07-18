@@ -3,6 +3,8 @@
 #include <math.h>
 #include <wchar.h>
 #include <locale.h>
+#include <string.h>
+#include "thermalview.h"
 
 /*フォントのデータを保存するグローバルデータ*/
 static FT_Library library;		//フォントライブラリ
@@ -89,7 +91,7 @@ void setfonts(char fontsfile[])
  *      text:　　　　表示する文字列 \nで改行する
  * 戻り値　なし
  */
-void drawchar(int draw_x,int draw_y,double angle,int fontssize,char text[])
+void drawchar(int win,int draw_x,int draw_y,double angle,int fontssize,char text[],int r,int g,int b)
 {
     int error;
     wchar_t *ws; /* ワイド文字保存用 */
@@ -150,6 +152,8 @@ void drawchar(int draw_x,int draw_y,double angle,int fontssize,char text[])
 		    }
 		    bitmap = slot->bitmap;
 
+			uint8_t *imgbuf = (uint8_t *)malloc(bitmap.rows * bitmap.width * 4);
+			memset(imgbuf, 0x00, bitmap.rows * bitmap.width * 4);
 		    for( int loopy = 0; loopy < bitmap.rows ; loopy++){
 				for(int byte_index=0;byte_index<bitmap.pitch;byte_index++) {
 					int byte_value,rowstart,end_loop,num_bits_done;
@@ -162,18 +166,23 @@ void drawchar(int draw_x,int draw_y,double angle,int fontssize,char text[])
 						end_loop = 8;
 					}
 					for(int bit_index=0;bit_index<end_loop;bit_index++) {
-					int bit = byte_value & (1<<(7-bit_index));
+						int bit = byte_value & (1<<(7-bit_index));
 						if(bit!=0) {
 							int x = (bit_index+rowstart)%bitmap.width  + slot->bitmap_left;
 							int y = (bit_index+rowstart)/bitmap.width - slot->bitmap_top;
+							imgbuf[(bit_index+rowstart)*4 + 0] = 0xff;
+							imgbuf[(bit_index+rowstart)*4 + 1] = r;
+							imgbuf[(bit_index+rowstart)*4 + 2] = g;
+							imgbuf[(bit_index+rowstart)*4 + 3] = b;
 							//_pset(x,y); /* 点を描く */
 						}
 					}
 				}
 		    }
+		    gputimage(win,slot->bitmap_left,slot->bitmap_top,imgbuf,bitmap.width,bitmap.rows,1);
 		    pen.x += slot->advance.x ;
 		    pen.y += slot->advance.y ;
-
+			free(imgbuf);
 	    }
 	}
 	free(ws);
