@@ -20,7 +20,13 @@ $ cd eggx/src
 $ ln -sf Makefile.linux Makefile
 $ make
 $ sudo make install
+
+### TrueTypeフォントとライブラリのインストール
 ```
+$ sudo apt install fonts-ipafont
+$ sudo apt install libfreetype6-dev
+```
+
 ### thermalviewのビルド
 ```
 $ git clone https://github.com/namikata2020/thermalview.git
