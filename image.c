@@ -119,9 +119,9 @@ void drawbar(int xp,int yp)
 		newrgbcolor(win,r,g,b) ;
 		fillrect(win,xp,i*bhi+yp,50,bhi);
 		if((i%5) == 0 ) {
-			sprintf(buf,"%d C",i);
+			sprintf(buf,"%d ℃",i);
 			newrgbcolor(win,255,255,255) ;
-			drawstr(win,xp+55,i*bhi+yp,14,0,buf);
+			drawchar(win,xp+55,i*bhi+yp,0,14,buf,255,255,255);
 		}
 	}
 }

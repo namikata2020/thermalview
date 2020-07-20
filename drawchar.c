@@ -168,8 +168,6 @@ void drawchar(int win,int draw_x,int draw_y,double angle,int fontssize,char text
 					for(int bit_index=0;bit_index<end_loop;bit_index++) {
 						int bit = byte_value & (1<<(7-bit_index));
 						if(bit!=0) {
-							int x = (bit_index+rowstart)%bitmap.width  + slot->bitmap_left;
-							int y = (bit_index+rowstart)/bitmap.width - slot->bitmap_top;
 							imgbuf[(bit_index+rowstart)*4 + 0] = 0xff;
 							imgbuf[(bit_index+rowstart)*4 + 1] = r;
 							imgbuf[(bit_index+rowstart)*4 + 2] = g;
@@ -179,7 +177,7 @@ void drawchar(int win,int draw_x,int draw_y,double angle,int fontssize,char text
 					}
 				}
 		    }
-		    gputimage(win,slot->bitmap_left,slot->bitmap_top,imgbuf,bitmap.width,bitmap.rows,1);
+		    gputimage(win,slot->bitmap_left,-slot->bitmap_top,imgbuf,bitmap.width,bitmap.rows,1);
 		    pen.x += slot->advance.x ;
 		    pen.y += slot->advance.y ;
 			free(imgbuf);

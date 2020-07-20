@@ -14,6 +14,7 @@ int main(int argc, char **argv)
     fd = opencamera(dev_name);
 
     openwin(CAMERA_X*MAG+100,CAMERA_Y*MAG);
+    setfonts("/usr/share/fonts/truetype/fonts-japanese-gothic.ttf");
     drawbar(CAMERA_X*MAG,0);
     for (;;) {
         uint16_t *img = readcamera(fd);
