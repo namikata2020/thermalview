@@ -177,7 +177,9 @@ void drawchar(int win,int draw_x,int draw_y,double angle,int fontssize,char text
 					}
 				}
 		    }
-		    gputimage(win,slot->bitmap_left,-slot->bitmap_top,imgbuf,bitmap.width,bitmap.rows,1);
+		    int xp = slot->bitmap_left;
+		    int yp = -slot->bitmap_top  + (int)(slot->metrics.horiBearingY>>6) - (bitmap.rows-(int)(slot->metrics.horiBearingY>>6));
+		    gputimage(win,xp,yp,imgbuf,bitmap.width,bitmap.rows,1);
 		    pen.x += slot->advance.x ;
 		    pen.y += slot->advance.y ;
 			free(imgbuf);

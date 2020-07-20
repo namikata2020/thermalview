@@ -99,13 +99,13 @@ void drawimage(unsigned char *img,int wx,int wy,int magni)
 
 void message(char *msg)
 {
-	newrgbcolor(win,255,0,0);
-	drawstr(win,49,49,70,0,msg);
-	drawstr(win,51,51,70,0,msg);
-	drawstr(win,51,49,70,0,msg);
-	drawstr(win,49,51,70,0,msg);
-	newrgbcolor(win,255,255,255);
-	drawstr(win,50,50,70,0,msg);
+	//newrgbcolor(win,255,0,0);
+	drawchar(win,49,49,70,0,msg,255,0,0);
+	drawchar(win,51,51,70,0,msg,255,0,0);
+	drawchar(win,51,49,70,0,msg,255,0,0);
+	drawchar(win,49,51,70,0,msg,255,0,0);
+	//newrgbcolor(win,255,255,255);
+	drawchar(win,50,50,70,0,msg,255,255,255);
 }
 
 void drawbar(int xp,int yp)
@@ -119,7 +119,7 @@ void drawbar(int xp,int yp)
 		newrgbcolor(win,r,g,b) ;
 		fillrect(win,xp,i*bhi+yp,50,bhi);
 		if((i%5) == 0 ) {
-			sprintf(buf,"%d ℃",i);
+			sprintf(buf,"%d℃",i);
 			newrgbcolor(win,255,255,255) ;
 			drawchar(win,xp+55,i*bhi+yp,0,14,buf,255,255,255);
 		}
