@@ -20,7 +20,7 @@ $ cd eggx/src
 $ ln -sf Makefile.linux Makefile
 $ make
 $ sudo make install
-
+```
 ### TrueTypeフォントとライブラリのインストール
 ```
 $ sudo apt install fonts-ipafont
