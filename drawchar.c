@@ -91,7 +91,7 @@ void setfonts(char fontsfile[])
  *      text:　　　　表示する文字列 \nで改行する
  * 戻り値　なし
  */
-void drawchar(int win,int draw_x,int draw_y,double angle,int fontssize,char text[],int r,int g,int b)
+void drawchar(int win,int draw_x,int draw_y,int fontssize,double angle,char text[],int r,int g,int b)
 {
     int error;
     wchar_t *ws; /* ワイド文字保存用 */

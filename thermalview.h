@@ -33,4 +33,4 @@ void message(char *msg);
 void drawbar(int xp,int yp);
 
 void setfonts(char fontsfile[]);
-void drawchar(int win,int draw_x,int draw_y,double angle,int fontssize,char text[],int r,int g,int b);
+void drawchar(int win,int draw_x,int draw_y,int fontssize,double angle,char text[],int r,int g,int b);
