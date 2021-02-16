@@ -22,7 +22,7 @@ int fontload=0;			//フォントのロードフラグ
 int strwlen(char *buf)
 {
     // LC_CTYPE をネイティブロケールに変更
-    if( setlocale( LC_CTYPE, "" ) == NULL ){
+    if( setlocale( LC_CTYPE, "ja_JP.UTF-8" ) == NULL ){
         fprintf(stderr, "do not set locale.\n");
         exit(EXIT_FAILURE);
     }
@@ -152,8 +152,6 @@ void drawchar(int win,int draw_x,int draw_y,int fontssize,double angle,char text
 		    }
 		    bitmap = slot->bitmap;
 
-			uint8_t *imgbuf = (uint8_t *)malloc(bitmap.rows * bitmap.width * 4);
-			memset(imgbuf, 0x00, bitmap.rows * bitmap.width * 4);
 		    for( int loopy = 0; loopy < bitmap.rows ; loopy++){
 				for(int byte_index=0;byte_index<bitmap.pitch;byte_index++) {
 					int byte_value,rowstart,end_loop,num_bits_done;
@@ -168,21 +166,15 @@ void drawchar(int win,int draw_x,int draw_y,int fontssize,double angle,char text
 					for(int bit_index=0;bit_index<end_loop;bit_index++) {
 						int bit = byte_value & (1<<(7-bit_index));
 						if(bit!=0) {
-							imgbuf[(bit_index+rowstart)*4 + 0] = 0xff;
-							imgbuf[(bit_index+rowstart)*4 + 1] = r;
-							imgbuf[(bit_index+rowstart)*4 + 2] = g;
-							imgbuf[(bit_index+rowstart)*4 + 3] = b;
-							//_pset(x,y); /* 点を描く */
+							int x = (bit_index+rowstart)%bitmap.width + slot->bitmap_left;
+                            int y = (bit_index+rowstart)/bitmap.width - slot->bitmap_top;
+							pset(win,x,draw_y-y+draw_y); /* 点を描く */
 						}
 					}
 				}
 		    }
-		    int xp = slot->bitmap_left;
-		    int yp = -slot->bitmap_top  + (int)(slot->metrics.horiBearingY>>6) - (bitmap.rows-(int)(slot->metrics.horiBearingY>>6));
-		    gputimage(win,xp,yp,imgbuf,bitmap.width,bitmap.rows,1);
 		    pen.x += slot->advance.x ;
 		    pen.y += slot->advance.y ;
-			free(imgbuf);
 	    }
 	}
 	free(ws);
